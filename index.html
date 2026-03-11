@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>株洲九派科技 · 数字化服务商</title>
+    <!-- Font Awesome 图标库 (免费版本，用于增强视觉) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* 防止固定导航栏遮挡标题 */
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1e2b3c;
+            background-color: #ffffff;
+        }
+
+        /* 固定导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0a2540;  /* 深蓝色 */
+            color: white;
+            padding: 0.8rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            font-weight: 300;
+            font-size: 1rem;
+            color: #aac9ff;
+            margin-left: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-links li a:hover {
+            background-color: #2f4b70;
+            color: #ffffff;
+        }
+
+        /* 主要内容区距导航高度 */
+        main {
+            margin-top: 72px;
+        }
+
+        /* 通用区块样式 */
+        section {
+            padding: 5rem 5%;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #0a2540;   /* 深蓝色标题 */
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 70px;
+            height: 4px;
+            background-color: #0a2540;
+            border-radius: 4px;
+        }
+        .section-title.center {
+            text-align: center;
+        }
+        .section-title.center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* ---------- HERO 首页 ---------- */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 3rem 5%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            font-weight: 700;
+            color: #0a2540;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero .slogan {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            color: #2c3e50;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto 1.8rem;
+            opacity: 0.9;
+        }
+
+        .hero .sub-line {
+            font-size: 1.2rem;
+            color: #4a5b6b;
+            border-top: 2px solid #eef2f6;
+            padding-top: 1.8rem;
+            max-width: 700px;
+            margin: 1rem auto 0;
+        }
+
+        /* ---------- 服务卡片 (三项) ---------- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 10px 30px -10px rgba(10, 37, 64, 0.1);
+            transition: transform 0.25s ease, box-shadow 0.25s;
+            border: 1px solid #edf2f7;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px -8px rgba(10, 37, 64, 0.2);
+            border-color: #d0e0ff;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: #0a2540;
+            margin-bottom: 1.2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.6rem;
+            color: #0a2540;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: #33475b;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ---------- 关于我们 ---------- */
+        .about-content {
+            background: #f9fcff;
+            border-radius: 32px;
+            padding: 2.8rem;
+            border-left: 8px solid #0a2540;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+
+        .about-content p {
+            font-size: 1.2rem;
+            color: #1e2b3c;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-highlight {
+            font-weight: 500;
+            color: #0a2540;
+            border-left: 4px solid #0a2540;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+
+        /* ---------- 联系我们 ---------- */
+        .contact-block {
+            background-color: #0a2540;  /* 深蓝色背景 */
+            color: white;
+            border-radius: 40px;
+            padding: 3.5rem 2.5rem;
+            box-shadow: 0 20px 30px -10px rgba(0,30,60,0.3);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 1.3rem;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            min-width: 260px;
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: #ffd966; /* 点缀色，依然保持高级感 */
+        }
+
+        .contact-item a, .contact-item span {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+            color: #ffd966;
+        }
+
+        /* 页脚 */
+        .footer {
+            background-color: #0a1a2c;
+            color: #b0c7e0;
+            text-align: center;
+            padding: 2rem 5%;
+            font-size: 0.95rem;
+            border-top: 1px solid #1e3a5a;
+        }
+
+        .footer p {
+            margin: 0.3rem 0;
+        }
+
+        .footer a {
+            color: #b0d0ff;
+            text-decoration: none;
+        }
+
+        /* ---------- 响应式细节调整 ---------- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 0.8rem 4%;
+            }
+            .logo {
+                margin-bottom: 0.3rem;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .nav-links li a {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            html {
+                scroll-padding-top: 120px;  /* 适应更高的导航栏 */
+            }
+            main {
+                margin-top: 110px;
+            }
+
+            .section-title {
+                font-size: 1.9rem;
+            }
+
+            .contact-block {
+                flex-direction: column;
+                text-align: center;
+                padding: 2.5rem 1.5rem;
+            }
+            .contact-item {
+                width: 100%;
+                justify-content: center;
+                font-size: 1.1rem;
+                padding: 0.9rem 1.2rem;
+            }
+
+            .about-content {
+                padding: 1.8rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-card {
+                padding: 1.8rem 1.2rem;
+            }
+            .contact-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            .contact-item i {
+                margin-bottom: 0.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定导航栏 深蓝纯色 -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="#home">九派科技<span>·株洲</span></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#services">服务</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- 首页 HERO 区：slogan + 一句话介绍 -->
+        <section id="home" class="hero">
+            <h1>株洲九派科技发展有限公司</h1>
+            <div class="slogan">让科技更有温度 · 让转型更加从容</div>
+            <div class="sub-line">
+                专注为企业提供数字化解决方案，从战略到落地，九派与您同行。
+            </div>
+        </section>
+
+        <!-- 服务介绍 (三项) -->
+        <section id="services">
+            <h2 class="section-title center">我们的服务</h2>
+            <div class="services-grid">
+                <!-- 服务 1: 软件开发与定制 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>软件开发与定制</h3>
+                    <p>根据您的业务场景，提供从需求分析、架构设计到开发测试的全栈式软件定制，打造真正贴合业务的数字化工具。</p>
+                </div>
+                <!-- 服务 2: 企业信息化咨询 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>企业信息化咨询</h3>
+                    <p>帮助中小企业梳理流程、选型系统、规避风险，让信息化投资产生实实在在的效益，少走弯路。</p>
+                </div>
+                <!-- 服务 3: 智能系统集成 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>智能系统集成</h3>
+                    <p>整合企业现有软件、硬件与数据资源，打通信息孤岛，搭建自动化与智能化的协同管理平台。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我们 (简单介绍) -->
+        <section id="about">
+            <h2 class="section-title">关于九派</h2>
+            <div class="about-content">
+                <p><strong>株洲九派科技发展有限公司</strong> 成立于株洲·中国动力谷，是一家以技术创新为驱动的科技服务企业。我们深信，技术的价值在于解决实际问题。</p>
+                <p>团队核心成员来自一线互联网公司和制造业信息化部门，拥有多年软硬件集成经验。我们以“务实、简洁、可靠”为准则，为华中地区数十家中小企业提供了数字化转型服务，涵盖机械、商贸、教育等领域。</p>
+                <div class="about-highlight">
+                    让技术回归业务，用数字创造可能 —— 九派科技，做您身边的数字化伙伴。
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系我们 (邮箱 & 电话) 采用深蓝背景白色文字 -->
+        <section id="contact">
+            <h2 class="section-title center" style="color:#0a2540;">联系与沟通</h2>
+            <div class="contact-block">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:contact@jiupai-tech.com">contact@jiupai-tech.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>0731-2888 1234</span>
+                </div>
+                <!-- 加一个小的地址提示，非必须但为了丰满 -->
+                <div class="contact-item" style="background:rgba(255,255,255,0.05);">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>株洲·天元区 动力谷大厦</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2025 株洲九派科技发展有限公司 版权所有</p>
+        <p>地址：湖南省株洲市天元区动力谷研发中心B座 ｜  <a href="#home">回到顶部 <i class="fas fa-arrow-up"></i></a></p>
+        <p style="font-size:0.8rem; margin-top:0.8rem;">* 本网站为现代简洁风格，适配所有设备</p>
+    </footer>
+</body>
+</html>
